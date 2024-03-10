@@ -17,7 +17,9 @@ endif
 
 # Adblock
 PRODUCT_PACKAGES += \
-    hosts.adblock
+    hosts.adblock \
+    hosts.adblock_symlink \
+    hosts.default
 
 PRODUCT_COPY_FILES += \
     vendor/rising/etc/init/init.adblock.rc:$(TARGET_COPY_OUT_SYSTEM_EXT)/etc/init/init.adblock.rc
