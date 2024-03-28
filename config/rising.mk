@@ -22,7 +22,7 @@ PRODUCT_PACKAGES += \
     hosts.real
 
 PRODUCT_COPY_FILES += \
-    vendor/rising/etc/init/init.adblock.rc:$(TARGET_COPY_OUT_SYSTEM_EXT)/etc/init/init.adblock.rc
+    vendor/rising/etc/adblock/init.adblock.rc:$(TARGET_COPY_OUT_SYSTEM_EXT)/etc/init/init.adblock.rc
 
 PRODUCT_SOONG_NAMESPACES += \
     vendor/rising/common
