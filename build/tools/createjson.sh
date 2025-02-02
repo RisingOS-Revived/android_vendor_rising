@@ -35,7 +35,7 @@ if [ -f $existingOTAjson ]; then
 	oem=`grep -n "\"oem\"" $existingOTAjson | cut -d ":" -f 3 | sed 's/"//g' | sed 's/,//g' | xargs`
 	device=`grep -n "\"device\"" $existingOTAjson | cut -d ":" -f 3 | sed 's/"//g' | sed 's/,//g' | xargs`
 	filename=$3
-	download="https://sourceforge.net/projects/risingos-official/files/${major_version}.x/$6/$1/$filename/download"
+	download="https://sourceforge.net/projects/risingos-revived/files/${major_version}.x/$6/$1/$filename/download"
 	version=`echo $4-$5`
 	buildprop=$2/system/build.prop
 	linenr=`grep -n "ro.system.build.date.utc" $buildprop | cut -d':' -f1`
@@ -116,7 +116,7 @@ else
 }' >> $output
 	cat $output
 	echo 'There is no official support for this device yet'
-	echo 'Consider adding official support by reading the documentation at https://github.com/RisingTechOSS-devices/official_devices/blob/main/README.md'
+	echo 'Consider adding official support by reading the documentation at https://github.com/RisingOS-Revived/official_devices/blob/main/README.md'
 fi
 
 echo ""
