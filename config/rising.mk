@@ -26,6 +26,10 @@ PRODUCT_DEXPREOPT_SPEED_APPS += \
     Launcher3QuickStep \
     NexusLauncherRelease
 
+# Rising Walls
+PRODUCT_PACKAGES += \
+    RisingWalls
+
 # Product Copy
 PRODUCT_COPY_FILES += \
     frameworks/base/data/keyboards/Vendor_045e_Product_028e.kl:$(TARGET_COPY_OUT_PRODUCT)/usr/keylayout/Vendor_045e_Product_0719.kl \
