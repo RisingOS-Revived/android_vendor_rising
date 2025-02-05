@@ -28,7 +28,8 @@ PRODUCT_DEXPREOPT_SPEED_APPS += \
 
 # Rising Walls
 PRODUCT_PACKAGES += \
-    RisingWalls
+    RisingWalls \
+    Backgrounds
 
 # Product Copy
 PRODUCT_COPY_FILES += \
