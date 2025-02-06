@@ -46,12 +46,12 @@ except:
     device = product
 
 if not depsonly:
-    print("Device %s not found. Attempting to retrieve device repository from RisingTechOSS-devices Github (http://github.com/RisingTechOSS-devices)." % device)
+    print("Device %s not found. Attempting to retrieve device repository from RisingOS-Revived-devices Github (http://github.com/RisingOS-Revived-devices)." % device)
 
 repositories = []
 
 if not depsonly:
-    githubreq = urllib.request.Request("https://raw.githubusercontent.com/RisingTechOSS-devices/official_devices/fifteen/devices.xml")
+    githubreq = urllib.request.Request("https://raw.githubusercontent.com/RisingOS-Revived/official_devices/refs/heads/fifteen/devices.xml")
     try:
         result = ElementTree.fromstring(urllib.request.urlopen(githubreq, timeout=10).read().decode())
     except urllib.error.URLError:
@@ -174,7 +174,7 @@ def add_to_manifest(repositories):
         repo_remote = repository.get('remote', 'devices')
         print('Checking if %s is fetched from %s' % (repo_target, repo_name))
         if is_in_manifest(repo_target):
-            print('RisingTechOSS-devices/%s already fetched to %s' % (repo_name, repo_target))
+            print('RisingOS-Revived-devices/%s already fetched to %s' % (repo_name, repo_target))
             continue
 
         project = ElementTree.Element("project", attrib = {
@@ -251,7 +251,7 @@ def get_default_or_fallback_revision(repo_name):
 
     try:
         stdout = subprocess.run(
-            ["git", "ls-remote", "-h", "https://:@github.com/RisingTechOSS-devices/" + repo_name],
+            ["git", "ls-remote", "-h", "https://:@github.com/RisingOS-Revived-devices/" + repo_name],
             stdout=subprocess.PIPE,
             stderr=subprocess.PIPE,
         ).stdout.decode()
@@ -306,4 +306,4 @@ else:
             print("Done")
             sys.exit()
 
-print("Repository for %s not found in the RisingTechOSS-devices Github repository list. If this is in error, you may need to manually add it to your local_manifests/roomservice.xml." % device)
+print("Repository for %s not found in the RisingOS-Revived-devices Github repository list. If this is in error, you may need to manually add it to your local_manifests/roomservice.xml." % device)
