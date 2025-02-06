@@ -1,5 +1,6 @@
 # Copyright (C) 2022 PixysOS Project
 # Copyright (C) 2023 RisingOS Project
+# Copyright (C) 2025 Rising Revived OSS
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -16,7 +17,7 @@
 # -----------------------------------------------------------------
 # RisingOS fastboot update package
 
-RISING_TARGET_UPDATEPACKAGE := $(PRODUCT_OUT)/RisingOS-$(RISING_BUILD_VERSION)-fastboot.zip
+RISING_TARGET_UPDATEPACKAGE := $(PRODUCT_OUT)/RisingOS_Revived-$(RISING_BUILD_VERSION)-fastboot.zip
 
 .PHONY: updatepackage dinner
 updatepackage: $(DEFAULT_GOAL) $(INTERNAL_UPDATE_PACKAGE_TARGET)

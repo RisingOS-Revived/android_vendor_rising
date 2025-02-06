@@ -1,6 +1,7 @@
 # Copyright (C) 2017 Unlegacy-Android
 # Copyright (C) 2017,2020 The LineageOS Project
 # Copyright (C) 2024 risingOS
+# Copyright (C) 2025 Rising Revived OSS
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -17,7 +18,7 @@
 # -----------------------------------------------------------------
 # RisingOS OTA update package
 
-RISING_TARGET_PACKAGE := $(PRODUCT_OUT)/RisingOS-$(RISING_BUILD_VERSION)-ota.zip
+RISING_TARGET_PACKAGE := $(PRODUCT_OUT)/RisingOS_Revived-$(RISING_BUILD_VERSION)-ota.zip
 
 SHA256 := prebuilts/build-tools/path/$(HOST_PREBUILT_TAG)/sha256sum
 
@@ -42,7 +43,7 @@ bacon: $(DEFAULT_GOAL) $(INTERNAL_OTA_PACKAGE_TARGET)
 	@echo "                                                               " >&2
 	@echo ""
 	@echo "Creating json OTA..." >&2
-	$(hide) ./vendor/rising/build/tools/createjson.sh $(TARGET_DEVICE) $(PRODUCT_OUT) RisingOS-$(RISING_BUILD_VERSION)-ota.zip $(RISING_VERSION) $(RISING_CODENAME) $(RISING_PACKAGE_TYPE) $(RISING_RELEASE_TYPE)
+	$(hide) ./vendor/rising/build/tools/createjson.sh $(TARGET_DEVICE) $(PRODUCT_OUT) RisingOS_Revived-$(RISING_BUILD_VERSION)-ota.zip $(RISING_VERSION) $(RISING_CODENAME) $(RISING_PACKAGE_TYPE) $(RISING_RELEASE_TYPE)
 	$(hide) cp -f $(PRODUCT_OUT)/$(TARGET_DEVICE).json vendor/official_devices/OTA/device/$(RISING_PACKAGE_TYPE)/$(TARGET_DEVICE).json
 	@echo ":·.·.·::·.·.·::·.·.·::·.·.·::·.·.·::·.·.·::·.·.·::·.·.·::·.·.·:" >&2
 	@echo " Size            : $(shell du -hs $(RISING_TARGET_PACKAGE) | awk '{print $$1}')"
