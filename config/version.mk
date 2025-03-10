@@ -10,7 +10,7 @@ RISING_VERSION := 6.2.1
 RISING_CODENAME := Boundless
 RISING_CODE := $(RISING_VERSION)
 
-RISING_BUILD_DATE := $(shell date +%y%m%d%H)
+RISING_BUILD_DATE := $(shell date +%y%m%d-%H%M)
 
 CURRENT_DEVICE := $(shell echo "$(TARGET_PRODUCT)" | cut -d'_' -f 2,3)
 MAINTAINER_LIST := $(shell cat vendor/official_devices/OTA/risingOS.maintainers)
