@@ -6,8 +6,8 @@ PRODUCT_SOONG_NAMESPACES += \
     vendor/rising/version
 
 RISING_FLAVOR := VanillaIceCream
-RISING_VERSION := 6.2.1
-RISING_CODENAME := Boundless
+RISING_VERSION := 6.3
+RISING_CODENAME := Celestia
 RISING_CODE := $(RISING_VERSION)
 
 RISING_BUILD_DATE := $(shell date +%y%m%d-%H%M)
