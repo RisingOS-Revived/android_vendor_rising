@@ -1,13 +1,7 @@
--include vendor/pixel-framework/config.mk
 -include vendor/addons/config.mk
-WITH_GMS ?= false
-ifeq ($(WITH_GMS),true)
--include vendor/gms/products/gms.mk
-endif
 include vendor/rising/config/properties.mk
 include vendor/rising/config/packages.mk
 include vendor/rising/config/version.mk
-include vendor/rising/audio/audio.mk
 include vendor/rising/overlays/build.mk
 include vendor/rising/prebuilts/prebuilts.mk
 ifeq ($(WITH_PIXEL_OVERLAYS),true)
