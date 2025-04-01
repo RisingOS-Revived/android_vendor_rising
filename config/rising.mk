@@ -19,6 +19,16 @@ PRODUCT_SOONG_NAMESPACES += \
 PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.software.freeform_window_management.xml:$(TARGET_COPY_OUT_PRODUCT)/etc/permissions/android.software.freeform_window_management.xml
 
+# BtHelper
+PRODUCT_PACKAGES += \
+    BtHelper
+
+# ColumbusService
+ifneq ($(TARGET_SUPPORTS_QUICK_TAP),false)
+PRODUCT_PACKAGES += \
+    ColumbusService
+endif
+
 # Dexopt
 PRODUCT_DEXPREOPT_SPEED_APPS += \
     Launcher3QuickStep \
