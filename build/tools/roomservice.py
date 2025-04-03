@@ -20,6 +20,7 @@ from __future__ import print_function
 import glob
 import json
 import os
+import shutil
 import re
 import subprocess
 import sys
@@ -65,6 +66,30 @@ if not depsonly:
 
 local_manifests = r'.repo/local_manifests'
 if not os.path.exists(local_manifests): os.makedirs(local_manifests)
+
+def backup_manifest(manifest_bkp_path):
+    backup_path = f"{manifest_bkp_path}.backup"
+    if not os.path.exists(backup_path):
+        os.system(f"cp {manifest_bkp_path} {backup_path}")
+        print(f"Backup created at {backup_path}")
+    else:
+        print(f"Backup already exists at {backup_path}")
+
+def restore_manifest(manifest_bkp_path):
+    backup_path = f"{manifest_bkp_path}.backup"
+    if os.path.exists(backup_path):
+        os.system(f"mv {backup_path} {manifest_bkp_path}")
+        print(f"Manifest restored from {backup_path}")
+    else:
+        print(f"No backup found at {backup_path} to restore.")
+
+def remove_local_manifest():
+    local_manifest_path = ".repo/local_manifests/"
+    if os.path.exists(local_manifest_path):
+        shutil.rmtree(local_manifest_path)
+        print(f"Removed local manifest: {local_manifest_path}")
+    else:
+        print(f"No local manifest found to remove: {local_manifest_path}")
 
 def exists_in_tree(lm, path):
     for child in lm.getchildren():
@@ -157,6 +182,59 @@ def is_in_manifest(projectpath):
 
     return False
 
+def comment_project_in_manifests(target_path):
+    """
+    Search through manifest files and comment out any project with matching path
+    Returns True if any changes were made
+    """
+    if dryrun:
+        return False
+
+    # Set the path for the manifest and the backup path
+    manifest_bkp_path = ".repo/manifests/snippets/lineage.xml"
+    # Backup the manifest before making changes
+    backup_manifest(manifest_bkp_path)
+
+    changed = False
+    manifest_files = glob.glob(".repo/local_manifests/*.xml") + [
+        get_manifest_path(),
+        ".repo/manifests/snippets/lineage.xml"
+    ]
+
+    for manifest_file in manifest_files:
+        try:
+            # Read the file content
+            with open(manifest_file, 'r') as f:
+                content = f.read()
+
+            # Parse the XML file
+            tree = ElementTree.parse(manifest_file)
+            root = tree.getroot()
+
+            modified = False
+            for project in root.findall('.//project'):
+                if project.get('path') == target_path:
+                    # Convert project to string
+                    project_str = ElementTree.tostring(project, encoding='unicode')
+                    # Create comment string
+                    comment = f'<!-- {project_str} -->'
+                    # Replace in content
+                    content = content.replace(project_str, comment)
+                    modified = True
+                    changed = True
+
+            if modified:
+                # Write back the modified content
+                with open(manifest_file, 'w') as f:
+                    f.write(content)
+                print(f"Commented out project with path {target_path} in {manifest_file}")
+
+        except Exception as e:
+            print(f"Error processing {manifest_file}: {str(e)}")
+            continue
+
+    return changed
+
 def add_to_manifest(repositories):
     if dryrun:
         return
@@ -170,8 +248,36 @@ def add_to_manifest(repositories):
     for repository in repositories:
         repo_name = repository['repository']
         repo_target = repository['target_path']
-        repo_revision = repository['branch']
+        repo_revision = repository.get('revision')
         repo_remote = repository.get('remote', 'devices')
+
+        # Handle new override format
+        if override_data := repository.get('override'):
+            print(f'Override specified: {override_data}')
+
+            # Extract override details
+            override_repo = override_data.get('repo')
+            override_path = override_data.get('path')
+
+            if override_repo and override_path:
+                print(f'Searching for repository: {override_repo} with path: {override_path}')
+
+                for manifest_file in glob.glob(".repo/local_manifests/*.xml") + [get_manifest_path(), ".repo/manifests/snippets/lineage.xml"]:
+                    try:
+                        tree = ElementTree.parse(manifest_file)
+                        root = tree.getroot()
+
+                        for project in root.findall('.//project'):
+                            # Check if both repository name and path match
+                            if (project.get('name') == override_repo and 
+                                project.get('path') == override_path):
+                                print(f'Found matching project: {override_repo} at path: {override_path}')
+                                comment_project_in_manifests(override_path)
+                                break
+                    except Exception as e:
+                        print(f"Error processing {manifest_file}: {str(e)}")
+                        continue
+
         print('Checking if %s is fetched from %s' % (repo_target, repo_name))
         if is_in_manifest(repo_target):
             print('RisingOS-Revived-devices/%s already fetched to %s' % (repo_name, repo_target))
@@ -180,16 +286,17 @@ def add_to_manifest(repositories):
         project = ElementTree.Element("project", attrib = {
             "path": repo_target,
             "remote": repo_remote,
-            "name": repo_name,
-            "revision": repo_revision })
-        if repo_remote := repository.get("remote", None):
-            # aosp- remotes are only used for kernel prebuilts, thus they
-            # don't let you customize clone-depth/revision.
-            if repo_remote.startswith("aosp-"):
-                project.attrib["name"] = repo_name
-                project.attrib["remote"] = repo_remote
-                project.attrib["clone-depth"] = "1"
+            "name": repo_name
+        })
+
+        if repo_revision is not None:
+            project.attrib["revision"] = repo_revision
+
+        if repo_remote.startswith("aosp-"):
+            project.attrib["clone-depth"] = "1"
+            if "revision" in project.attrib:
                 del project.attrib["revision"]
+
         print("Adding dependency: %s -> %s" % (project.attrib["name"], project.attrib["path"]))
         lm.append(project)
 
@@ -243,6 +350,13 @@ def fetch_dependencies(repo_path):
 
     for deprepo in verify_repos:
         fetch_dependencies(deprepo)
+
+    # Set the path for the manifest and the backup path
+    manifest_bkp_path = ".repo/manifests/snippets/lineage.xml"
+    restore_manifest(manifest_bkp_path)
+
+    # Remove the local manifest after fetching
+    remove_local_manifest()
 
 def get_default_or_fallback_revision(repo_name):
     default_revision = get_default_revision()
