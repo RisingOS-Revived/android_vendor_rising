@@ -31,7 +31,7 @@ endif
 
 # Dexopt
 PRODUCT_DEXPREOPT_SPEED_APPS += \
-    Launcher3QuickStep \
+    TrebuchetQuickStep \
     NexusLauncherRelease
 
 # Rising Walls
