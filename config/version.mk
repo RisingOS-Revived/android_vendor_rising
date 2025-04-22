@@ -37,6 +37,8 @@ ifeq ($(WITH_GMS), true)
 	else
     	RISING_PACKAGE_TYPE ?= GAPPS
 	endif
+else ifeq ($(WITH_MICROG), true)
+    RISING_PACKAGE_TYPE ?= MICROG
 else
     RISING_PACKAGE_TYPE ?= VANILLA
 endif
