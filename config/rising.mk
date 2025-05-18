@@ -8,7 +8,7 @@ ifeq ($(WITH_PIXEL_OVERLAYS),true)
 -include vendor/pixeloverlays/config.mk
 endif
 -include vendor/google/mainline_modules/config.mk
-ifeq ($(WITH_PIXEL_OVERLAYS),true)
+ifeq ($(WITH_MICROG),true)
 include vendor/microg/products/gms.mk
 endif
 
