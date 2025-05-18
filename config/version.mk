@@ -33,6 +33,7 @@ endif
 
 ifeq ($(WITH_MICROG), true)
     RISING_PACKAGE_TYPE ?= MICROG
+    WITH_GMS := false
 else ifeq ($(WITH_GMS), true)
         ifeq ($(TARGET_CORE_GMS), true)
         RISING_PACKAGE_TYPE ?= CORE
