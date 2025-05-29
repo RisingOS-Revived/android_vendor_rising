@@ -35,7 +35,7 @@ ifeq ($(WITH_MICROG), true)
     RISING_PACKAGE_TYPE ?= MICROG
     WITH_GMS := false
 else ifeq ($(WITH_GMS), true)
-        ifeq ($(TARGET_CORE_GMS), true)
+        ifeq ($(TARGET_USES_PICO_GAPPS), true)
         RISING_PACKAGE_TYPE ?= CORE
         else
         RISING_PACKAGE_TYPE ?= GAPPS
