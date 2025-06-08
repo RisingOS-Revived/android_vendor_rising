@@ -54,9 +54,9 @@ PRODUCT_COPY_FILES += \
     vendor/rising/prebuilts/apn/apns-conf.xml:$(TARGET_COPY_OUT_PRODUCT)/etc/apns-conf.xml
 endif
 
-TARGET_SHIP_LEGACY_BOOT_ANIMAITON ?= false
-ifeq ($(TARGET_SHIP_LEGACY_BOOT_ANIMAITON),true)
-PRODUCT_COPY_FILES += vendor/rising/prebuilts/bootanimation.zip:$(TARGET_COPY_OUT_PRODUCT)/media/bootanimation.zip
+TARGET_SHIP_LEGACY_BOOT_ANIMATION ?= false
+ifeq ($(TARGET_SHIP_LEGACY_BOOT_ANIMATION),true)
+PRODUCT_COPY_FILES += vendor/rising/prebuilts/bootanimation/bootanimation_rising.zip:$(TARGET_COPY_OUT_PRODUCT)/media/bootanimation.zip
 endif
 
 # TFLite service.
@@ -65,6 +65,6 @@ PRODUCT_PACKAGES += libtensorflowlite_jni
 # Allow TFLite service modules to be installed to the system partition
 PRODUCT_ARTIFACT_PATH_REQUIREMENT_ALLOWED_LIST += \
     system/lib/libtensorflowlite_jni.so \
-     system/lib64/libtensorflowlite_jni.so
+    system/lib64/libtensorflowlite_jni.so
 
 $(call inherit-product, vendor/rising/config/vars.mk)
