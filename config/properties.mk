@@ -53,6 +53,10 @@ PRODUCT_SYSTEM_DEFAULT_PROPERTIES += \
 PRODUCT_PRODUCT_PROPERTIES += \
     debug.graphics.game_default_frame_rate.disabled=true
 
+# Pop-Up View
+PRODUCT_SYSTEM_PROPERTIES += \
+    ro.rising.feature.pop_up_view=true
+
 # Blurs
 TARGET_ENABLE_BLUR ?= true
 ifeq ($(TARGET_ENABLE_BLUR),true)
