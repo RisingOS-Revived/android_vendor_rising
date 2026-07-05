@@ -9,12 +9,12 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     Backgrounds \
     BatteryStatsViewer \
-    OmniStyle \
-    OmniJaws \
-    Updater \
-    GameSpace \
-    LMOFreeform \
-    LMOFreeformSidebar
+    Updater
+#    OmniStyle \
+#    OmniJaws \
+#    GameSpace \
+#    LMOFreeform \
+#    LMOFreeformSidebar
 
 ifneq ($(WITH_GMS),true)
 PRODUCT_PACKAGES += \
