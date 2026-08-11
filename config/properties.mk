@@ -1,14 +1,6 @@
 PRODUCT_SOONG_NAMESPACES += \
     vendor/rising/properties
 
-ifeq ($(PRODUCT_GMS_CLIENTID_BASE),)
-PRODUCT_SYSTEM_DEFAULT_PROPERTIES += \
-    ro.com.google.clientidbase=android-google
-else
-PRODUCT_SYSTEM_DEFAULT_PROPERTIES += \
-    ro.com.google.clientidbase=$(PRODUCT_GMS_CLIENTID_BASE)
-endif
-
 # properties
 PRODUCT_PRODUCT_PROPERTIES += \
     persist.wm.extensions.enabled=true
@@ -43,7 +35,6 @@ PRODUCT_PRODUCT_PROPERTIES += \
     persist.arm64.memtag.app.com.android.nfc=off \
     persist.arm64.memtag.system_server=off
 
-
 PRODUCT_SYSTEM_DEFAULT_PROPERTIES += \
     dalvik.vm.systemuicompilerfilter=speed \
     persist.sys.strictmode.disable=true \
@@ -52,10 +43,6 @@ PRODUCT_SYSTEM_DEFAULT_PROPERTIES += \
 # Disable default frame rate limit for games
 PRODUCT_PRODUCT_PROPERTIES += \
     debug.graphics.game_default_frame_rate.disabled=true
-
-# Pop-Up View
-PRODUCT_SYSTEM_PROPERTIES += \
-    ro.rising.feature.pop_up_view=true
 
 # Blurs
 TARGET_ENABLE_BLUR ?= true
@@ -69,20 +56,6 @@ PRODUCT_SYSTEM_PROPERTIES += \
     ro.custom.blur.enable=false \
     persist.sysui.disableBlur=true \
     ro.surface_flinger.supports_background_blur=0
-endif
-
-# Freeform
-TARGET_DEVICE_IS_TABLET ?= false
-PRODUCT_PRODUCT_PROPERTIES += \
-    persist.wm.debug.desktop_mode=false
-ifeq ($(TARGET_DEVICE_IS_TABLET), true)
-PRODUCT_PRODUCT_PROPERTIES += \
-    persist.wm.debug.desktop_mode.default_width=840 \
-    persist.wm.debug.desktop_mode.default_height=630
-else
-PRODUCT_PRODUCT_PROPERTIES += \
-    persist.wm.debug.desktop_mode.default_width=230 \
-    persist.wm.debug.desktop_mode.default_height=360
 endif
 
 # Art
@@ -106,8 +79,8 @@ PRODUCT_PRODUCT_PROPERTIES += \
     dalvik.vm.dex2oat-minidebuginfo=false \
     pm.dexopt.downgrade_after_inactive_days=10 \
     dalvik.vm.madvise-random=true
-    
-# lmk 
+
+# lmk
 PRODUCT_PRODUCT_PROPERTIES += \
     ro.lmk.critical_upgrade?=true \
     ro.lmk.upgrade_pressure?=40 \
@@ -138,19 +111,3 @@ else
 PRODUCT_SYSTEM_PROPERTIES += \
     persist.sys.default_launcher=0
 endif
-
-PRODUCT_PRODUCT_PROPERTIES += \
-    persist.sys.pihooks_MANUFACTURER?=Google \
-    persist.sys.pihooks_BRAND?=google \
-    persist.sys.pihooks_PRODUCT?=comet_beta \
-    persist.sys.pihooks_DEVICE?=comet \
-    persist.sys.pihooks_ID?=BP41.250916.010.A1 \
-    persist.sys.pihooks_RELEASE?=12 \
-    persist.sys.pihooks_SECURITY_PATCH?=2025-10-05 \
-    persist.sys.pihooks_DEVICE_INITIAL_SDK_INT?=21 \
-    persist.sys.pihooks_SDK_INT?=32
-
-PRODUCT_BUILD_PROP_OVERRIDES += \
-    BuildFingerprint=google/comet_beta/comet:16/BP41.250916.010.A1/14281945:user/release-keys \
-    PihooksGmsFp="google/comet_beta/comet:16/BP41.250916.010.A1/14281945:user/release-keys" \
-    PihooksGmsModel="Pixel 9 Pro Fold"
