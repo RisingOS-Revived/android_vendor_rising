@@ -14,7 +14,10 @@ PRODUCT_PACKAGES += \
     Updater \
     GameSpace \
     LMOFreeform \
-    LMOFreeformSidebar
+    LMOFreeformSidebar \
+    AxQuickLook \
+    AxSandbox \
+    AppDataBackup
 
 ifneq ($(WITH_GMS),true)
 PRODUCT_PACKAGES += \
