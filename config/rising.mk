@@ -4,9 +4,6 @@ include vendor/rising/config/packages.mk
 include vendor/rising/config/version.mk
 include vendor/rising/overlays/build.mk
 include vendor/rising/prebuilts/prebuilts.mk
-ifeq ($(WITH_PIXEL_OVERLAYS),true)
--include vendor/pixeloverlays/config.mk
-endif
 -include vendor/google/mainline_modules/config.mk
 ifeq ($(WITH_MICROG),true)
 include vendor/microg/products/gms.mk
