@@ -64,4 +64,7 @@ PRODUCT_ARTIFACT_PATH_REQUIREMENT_ALLOWED_LIST += \
     system/lib/libtensorflowlite_jni.so \
     system/lib64/libtensorflowlite_jni.so
 
+# Make AOSP tree RW
+BUILD_BROKEN_SRC_DIR_IS_WRITABLE := true
+
 $(call inherit-product, vendor/rising/config/vars.mk)
