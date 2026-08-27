@@ -35,7 +35,7 @@ PRODUCT_PRODUCT_PROPERTIES += \
     persist.arm64.memtag.app.com.android.nfc=off \
     persist.arm64.memtag.system_server=off
 
-PRODUCT_SYSTEM_DEFAULT_PROPERTIES += \
+PRODUCT_SYSTEM_EXT_PROPERTIES += \
     dalvik.vm.systemuicompilerfilter=speed \
     persist.sys.strictmode.disable=true \
     persist.sys.device_power_mode=default
@@ -47,12 +47,12 @@ PRODUCT_PRODUCT_PROPERTIES += \
 # Blurs
 TARGET_ENABLE_BLUR ?= true
 ifeq ($(TARGET_ENABLE_BLUR),true)
-PRODUCT_SYSTEM_PROPERTIES += \
+PRODUCT_SYSTEM_EXT_PROPERTIES += \
     ro.custom.blur.enable=true \
     persist.sysui.disableBlur=false \
     ro.surface_flinger.supports_background_blur=1
 else
-PRODUCT_SYSTEM_PROPERTIES += \
+PRODUCT_SYSTEM_EXT_PROPERTIES += \
     ro.custom.blur.enable=false \
     persist.sysui.disableBlur=true \
     ro.surface_flinger.supports_background_blur=0
@@ -98,16 +98,16 @@ WITH_GMS ?= true
 ifeq ($(WITH_GMS),true)
 ifeq ($(TARGET_DEFAULT_PIXEL_LAUNCHER), true)
 # Pixel Launcher
-PRODUCT_SYSTEM_PROPERTIES += \
+PRODUCT_SYSTEM_EXT_PROPERTIES += \
     persist.sys.default_launcher=1 \
     persist.sys.quickswitch_pixel_shipped=1
 else
 # Launcher3
-PRODUCT_SYSTEM_PROPERTIES += \
+PRODUCT_SYSTEM_EXT_PROPERTIES += \
     persist.sys.default_launcher=0 \
     persist.sys.quickswitch_pixel_shipped=1
 endif
 else
-PRODUCT_SYSTEM_PROPERTIES += \
+PRODUCT_SYSTEM_EXT_PROPERTIES += \
     persist.sys.default_launcher=0
 endif
