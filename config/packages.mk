@@ -7,7 +7,6 @@ PRODUCT_PACKAGES += \
     androidx.window.sidecar
 
 PRODUCT_PACKAGES += \
-    Backgrounds \
     BatteryStatsViewer \
     OmniStyle \
     OmniJaws \
