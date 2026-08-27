@@ -37,8 +37,4 @@ prebuilt_etc {
    name: "etc_hosts",
    src: "hosts",
    filename: "hosts.real",
-   required: [
-       "hosts.adblock",
-       "hosts.adblock_symlink",
-   ],
 }
