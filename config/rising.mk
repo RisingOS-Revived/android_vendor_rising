@@ -63,7 +63,10 @@ PRODUCT_ARTIFACT_PATH_REQUIREMENT_ALLOWED_LIST += \
     system/lib/libtensorflowlite_jni.so \
     system/lib64/libtensorflowlite_jni.so \
     system/lib/libtensorflowlite_gpu_jni.so \
-    system/lib64/libtensorflowlite_gpu_jni.so
+    system/lib64/libtensorflowlite_gpu_jni.so \
+    system/apex/com.google.android.webapp.apex \
+    system/etc/permissions/privapp-permissions-appbackup.xml \
+    system/priv-app/AppDataBackup/AppDataBackup.apk
 
 # Make AOSP tree RW
 BUILD_BROKEN_SRC_DIR_IS_WRITABLE := true
