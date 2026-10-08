@@ -26,13 +26,14 @@ PRODUCT_PACKAGES += \
     ThemePicker
 endif
 
-ifeq ($(TARGET_SUPPORTS_64_BIT_APPS),true)
-TARGET_FACE_UNLOCK_SUPPORTED ?= true
-ifeq ($(TARGET_FACE_UNLOCK_SUPPORTED),true)
+# Face Unlock
+TARGET_FACE_UNLOCK_SUPPORTED ?= $(TARGET_SUPPORTS_64_BIT_APPS)
+TARGET_PROVIDES_FACE_UNLOCK_HAL ?= false
 
 ifeq ($(TARGET_SUPPORTS_GFU),true)
 $(call inherit-product-if-exists, vendor/google/faceunlock/config.mk)
-else
+else ifeq ($(TARGET_PROVIDES_FACE_UNLOCK_HAL),false)
+ifneq ($(TARGET_FACE_UNLOCK_SUPPORTED),false)
 # Supported Pixels get face unlock from their device trees (face HAL and
 # overlays), so don't build the generic one there
 ifeq ($(filter $(LINEAGE_BUILD), \
@@ -62,7 +63,6 @@ PRODUCT_ARTIFACT_PATH_REQUIREMENT_ALLOWED_LIST += \
     system/lib64/libmegface.so \
     system/priv-app/FaceUnlock/FaceUnlock.apk
 endif
-
 endif
 endif
 
