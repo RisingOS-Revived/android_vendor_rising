@@ -16,7 +16,8 @@ PRODUCT_PACKAGES += \
     LMOFreeformSidebar \
     AxQuickLook \
     AxSandbox \
-    AppDataBackup
+    AppDataBackup \
+    LunarisLockStyles
 
 ifneq ($(WITH_GMS),true)
 PRODUCT_PACKAGES += \
